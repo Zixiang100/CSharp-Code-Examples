@@ -13,15 +13,33 @@ namespace CSharp_Code_Examples
         public static void run()
         {
             Console.Write("Enter the message >>> "); //Message to be encrypted or decrypted
-            string message = Console.ReadLine();  
+            string message = Console.ReadLine();
 
-            Console.Write("Enter 0 or 1 \n0.Encryption \n1.Decryption \n>>> "); //0 or 1 for encryption or decryption
-            int choice = int.Parse(Console.ReadLine()); 
+            int choice;
+            while (true) // Input validation to only allow 0 or 1 to be entered
+            {
+                Console.Write("Enter 0 or 1 \n0.Encryption \n1.Decryption \n>>> "); //0 or 1 for encryption or decryption
+                string choiceInput = Console.ReadLine();
+                if (int.TryParse(choiceInput, out choice) && (choice == 0 || choice == 1))
+                {
+                    break;
+                }
+                Console.WriteLine("Invalid input. Please enter either 0 for encryption or 1 for decryption");
+            }
 
-            Console.Write("Enter number to shift by >>> "); //Shifting the message by what number is entered
-            int key = int.Parse(Console.ReadLine()); 
-            key = key % 26; //Used to wrap around if the number > 26
-
+            int key;
+            while (true)  // Input validation to only allow integer to be entered
+            {
+                Console.Write("Enter number to shift by >>> "); //Shifting the message by what number is entered
+                string keyInput = Console.ReadLine();
+                if (int.TryParse(keyInput, out key))
+                {
+                    key = key % 26; //Used to wrap around if the number > 26;
+                    break;
+                }
+                Console.WriteLine("Invalid input. Please enter a integer to be used for encryption or decryption");
+            }
+            
             char[] result = message.ToCharArray(); //Converts message from string to character
 
             // Loops through each character in the message
